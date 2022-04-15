@@ -79,26 +79,6 @@ if ((!empty($fontname)) || (!empty($fontheadername)) || (!empty($fonttitlename))
     }
 }
 
-// Output metadescription 
-// Definitely could be improved.
-$pagemetadescription = '';
-switch ($PAGE->pagetype) {
-    case 'site-index':
-        // This is the mainpage
-        $pagemetadescription = strip_tags($SITE->summary);
-    break;
-
-    case 'course-view-topics':
-        // This is the course summary page
-        $pagemetadescription = strip_tags($COURSE->summary);
-    break;
-
-    default:
-        // The default metadescription.
-        $pagemetadescription = $SITE->fullname;
-    break;
-}
-
 // HTML head.
 echo $OUTPUT->standard_head_html();
 $siteurl = new moodle_url('');
@@ -106,9 +86,16 @@ $siteurl = new moodle_url('');
     <!-- CSS print media -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO data -->
-    <meta name="description" content="<?php echo $pagemetadescription; ?>">
-    <meta name="debug" content="<?php echo $SITE->sitesummary; ?>">
+    <?php
+    // Output metadescription for coursepage only
+    // Definitely could be improved.
+    if ($PAGE->pagetype == 'course-view-topics')) {
+        echo '<!-- SEO data for course page only-->';
+        echo '<meta name="description" content="';
+        echo strip_tags($COURSE->summary);
+        echo '" >';
+    }
+    ?>
 
     <!-- Twitter Card data -->
     <meta name="twitter:card" value="summary">
