@@ -89,7 +89,7 @@ $siteurl = new moodle_url('');
     <?php
     // Output metadescription for coursepage only
     // Definitely could be improved.
-    if ($PAGE->pagetype == 'course-view-topics')) {
+    if ($PAGE->pagetype == 'course-view-topics') {
         echo '<!-- SEO data for course page only-->';
         echo '<meta name="description" content="';
         echo strip_tags($COURSE->summary);
